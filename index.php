@@ -2,12 +2,6 @@
 // Start the session
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // If not logged in, redirect to the login page
-    header("Location: login.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +101,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <body>
 
 <header>
-     <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> to Automotive Retail & Services!</h1>
+     <header>
+    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+        <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> to Automotive Retail & Services!</h1>
+    <?php else: ?>
+        <h1>Welcome to Automotive Retail & Services!</h1>
+    <?php endif; ?>
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>

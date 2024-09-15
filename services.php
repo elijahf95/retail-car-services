@@ -23,7 +23,7 @@
         }
 
         header h1 {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
             margin: 0;
@@ -62,7 +62,7 @@
         }
 
         section h2 {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 2rem;
             font-weight: 600;
             color: #2c3e50;
@@ -75,6 +75,87 @@
             line-height: 1.6;
             margin: 0;
         }
+
+        /* Flexbox styling for team section */
+        .team {
+            margin: 40px auto;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-heading span {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .team-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .team-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 30%;
+            transition: transform 0.3s;
+        }
+
+        .team-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .down-content {
+            padding: 20px;
+        }
+
+        .down-content h4 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .down-content span {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .down-content p {
+            font-size: 1rem;
+            color: #95a5a6;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .team-item {
+                width: 100%;
+            }
+        }
+
 
         footer {
             background-color: #3498db;
@@ -110,6 +191,55 @@
     <h2>What We Offer</h2>
     <p>We provide a wide range of services including car repairs, maintenance, and diagnostics. Our skilled technicians are here to ensure your vehicle runs smoothly and efficiently.</p>
 </section>
+
+<div class="team">
+    <div class="section-heading">
+        <h2>Our team <em>members</em></h2>
+        <span>Suspendisse a ante in neque iaculis lacinia</span>
+    </div>
+    <div class="team-items">
+        <div class="team-item">
+            <img src="images/team3.png" alt="">
+            <div class="down-content">
+                <h4>John Reno Bedonia</h4>
+                <span>Detainee</span>
+                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+            </div>
+        </div>
+        <div class="team-item">
+            <img src="images/team1.png" alt="">
+            <div class="down-content">
+                <h4>Mary Houston</h4>
+                <span>Chief Marketing Officer</span>
+                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+            </div>
+        </div>
+        <div class="team-item">
+            <img src="images/team2.png" alt="">
+            <div class="down-content">
+                <h4>John Doe</h4>
+                <span>Financial Analyst</span>
+                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+            </div>
+        </div>
+        <div class="team-item">
+            <img src="images/team4.png" alt="">
+            <div class="down-content">
+                <h4>Bajenjen</h4>
+                <span>Detainee</span>
+                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+            </div>
+        </div>
+        <div class="team-item">
+            <img src="images/team5.png" alt="">
+            <div class="down-content">
+                <h4>Bajenjen</h4>
+                <span>Detainee</span>
+                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer>
     <p>&copy; 2024 Automotive Retail & Services. All rights reserved.</p>
