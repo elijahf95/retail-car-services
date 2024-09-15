@@ -209,7 +209,7 @@
         <div class="team-item">
             <img src="images/team1.png" alt="">
             <div class="down-content">
-                <h4>Mary Houston</h4>
+                <h4>William Miguel Berbanzana</h4>
                 <span>Chief Marketing Officer</span>
                 <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
             </div>
@@ -217,7 +217,7 @@
         <div class="team-item">
             <img src="images/team2.png" alt="">
             <div class="down-content">
-                <h4>John Doe</h4>
+                <h4>Larry James Labayen</h4>
                 <span>Financial Analyst</span>
                 <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
             </div>
@@ -225,7 +225,7 @@
         <div class="team-item">
             <img src="images/team4.png" alt="">
             <div class="down-content">
-                <h4>Bajenjen</h4>
+                <h4>Genki Trocio</h4>
                 <span>Detainee</span>
                 <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
             </div>
@@ -233,7 +233,7 @@
         <div class="team-item">
             <img src="images/team5.png" alt="">
             <div class="down-content">
-                <h4>Bajenjen</h4>
+                <h4>Elijah Fernandez</h4>
                 <span>Detainee</span>
                 <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
             </div>
