@@ -1,3 +1,8 @@
+<?php
+// payment.php
+$product = isset($_GET['product']) ? $_GET['product'] : 'Unknown Product';
+$price = isset($_GET['price']) ? $_GET['price'] : 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,7 +248,7 @@
               <span>from <sup>₱</sup>20.5 Million</span>
             </div>
             <p>The Ferrari California is billed as the Ferrari you can use every day.</p>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
+            <a href="order_confirmation.php?product=2011 Ferrari California&price=20500000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
           </div>
         </div>
         <br>
@@ -258,7 +263,7 @@
               <span>from <sup>₱</sup>1.6 Million</span>
             </div>
             <p>The Honda Vezel Modulo is a stylish compact SUV, known for its fuel efficiency and reliability, perfect for urban driving and weekend getaways.</p>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
+            <a href="order_confirmation.php?product=Honda Vezel Modulo 2014&price=16000000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
           </div>
         </div>
         <br>
@@ -273,7 +278,7 @@
               <span>from <sup>₱</sup>2 Million</span>
             </div>
             <p>The Ford Edge is a midsize SUV offering comfort, space, and advanced technology for family road trips or long drives.</p>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
+            <a href="order_confirmation.php?product=Ford 2015 Edge Naranja&price=2000000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
           </div>
         </div>
         <br>
@@ -288,7 +293,7 @@
               <span>from <sup>₱</sup>1.5 Million</span>
             </div>
             <p>The Volkswagen Jetta is a sleek, fuel-efficient sedan known for its smooth handling and comfortable ride, perfect for daily commutes.</p>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
+            <a href="order_confirmation.php?product=Volkswagen Jetta&price=1500000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
           </div>
         </div>
         <br>
@@ -303,7 +308,7 @@
               <span>from <sup>₱</sup>1.7 Million</span>
             </div>
             <p>The Volkswagen Golf Mk7 is a versatile hatchback, known for its agility and advanced technology, making it a great option for city driving.</p>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
+            <a href="order_confirmation.php?product=Volkswagen Golf Mk7&price=1700000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
           </div>
         </div>
         <br>
@@ -318,7 +323,7 @@
               <span>from <sup>₱</sup>3.5 Million</span>
             </div>
             <p>The 2020 Ford Mustang GT Convertible delivers thrilling performance with a powerful V8 engine, perfect for open-air driving enthusiasts.</p>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
+            <a href="order_confirmation.php?product=2020 Ford Mustang GT Convertible&price=3500000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
           </div>
         </div>
         <br>

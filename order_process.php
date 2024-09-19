@@ -1,58 +1,43 @@
 <?php
-session_start();
+// Include database connection
+include 'db_connection.php';
 
-$servername = "localhost";
-$db_username = "root";
-$db_password = "";
-$dbname = "automotive_db";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Sanitize and validate inputs
+    $product = htmlspecialchars($_POST['product']);
+    $price = (int)$_POST['price'];
+    $name = htmlspecialchars($_POST['name']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $card = htmlspecialchars($_POST['card']);
+    $expiry = htmlspecialchars($_POST['expiry']);
+    $cvv = htmlspecialchars($_POST['cvv']);
 
-// Create connection
-$conn = new mysqli($servername, $db_username, $db_password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if the user is logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php?error=Please log in to place an order.");
-    exit();
-}
-
-// Check if the form was submitted with POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user_id = $_SESSION['user_id']; // Assuming you've stored the user ID in session
-    $order_items = $_POST['items'];  // Array of items with product_name, quantity, and price
-
-    // Calculate total amount
-    $total_amount = 0;
-    foreach ($order_items as $item) {
-        $total_amount += $item['price'] * $item['quantity'];
+    // Validate form fields (you can add more validation)
+    if (empty($product) || empty($price) || empty($name) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Error: Invalid input");
     }
 
-    // Insert order into 'orders' table
-    $sql_order = "INSERT INTO orders (user_id, total_amount) VALUES ('$user_id', '$total_amount')";
-    if ($conn->query($sql_order) === TRUE) {
-        $order_id = $conn->insert_id; // Get the last inserted order ID
-
-        // Insert each item into 'order_items' table
-        foreach ($order_items as $item) {
-            $product_name = $conn->real_escape_string($item['product_name']);
-            $quantity = $item['quantity'];
-            $price = $item['price'];
-            $sql_item = "INSERT INTO order_items (order_id, product_name, quantity, price) 
-                         VALUES ('$order_id', '$product_name', '$quantity', '$price')";
-            $conn->query($sql_item);
+    // Prepare SQL query to insert order into the database
+    $sql = "INSERT INTO orders (product, price, name, email, card, expiry, cvv) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+    if ($stmt = $conn->prepare($sql)) {
+        // Bind parameters
+        $stmt->bind_param('sisssss', $product, $price, $name, $email, $card, $expiry, $cvv);
+        
+        // Execute query
+        if ($stmt->execute()) {
+            // Redirect or show success message
+            header("Location: success_page.php?name=" . urlencode($name) . "&product=" . urlencode($product));
+            exit;
+        } else {
+            echo "Error: " . $stmt->error;
         }
-
-        // Redirect to a confirmation page
-        header("Location: order_confirmation.php?order_id=$order_id");
+        
+        $stmt->close();
     } else {
-        echo "Error: " . $sql_order . "<br>" . $conn->error;
+        echo "Error: " . $conn->error;
     }
-    $conn->close();
-} else {
-    echo "Form was not submitted correctly.";
 }
+
+$conn->close();
 ?>
