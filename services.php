@@ -240,40 +240,40 @@
             <img src="images/team3.png" alt="">
             <div class="down-content">
                 <h4>John Reno Bedonia</h4>
-                <span>Detainee</span>
-                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+                <span>Chief Operating Officer</span>
+                <p>Mr. Bedonia manages day-to-day operations and ensures that the company runs smoothly. He oversees the execution of the company's business plans.</p>
             </div>
         </div>
         <div class="team-item">
             <img src="images/team1.png" alt="">
             <div class="down-content">
                 <h4>William Miguel Berbanzana</h4>
-                <span>Chief Marketing Officer</span>
-                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+                <span>Chief Executive Officer</span>
+                <p>Mr. Berbenzana is the highest-ranking executive in the company and is primarily responsible for overseeing the overall operations and performance of the organization. This involves a wide range of responsibilities, having the company’s retails and services.</p>
             </div>
         </div>
         <div class="team-item">
             <img src="images/team2.png" alt="">
             <div class="down-content">
                 <h4>Larry James Labayen</h4>
-                <span>Financial Analyst</span>
-                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+                <span>Chief Financial Officer</span>
+                <p>Mr. Labayen is responsible for managing the company’s finances, including financial planning, risk management, record-keeping, and financial reporting. He is often involved in strategic decision-making about resource allocation.</p>
             </div>
         </div>
         <div class="team-item">
             <img src="images/team4.png" alt="">
             <div class="down-content">
                 <h4>Genki Trocio</h4>
-                <span>Detainee</span>
-                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+                <span>Chief Technology Officer</span>
+                <p>Mr. Trocio is responsible for the company’s technological direction and strategy, particularly if the company has a significant tech component. He often manages the development and implementation of technology initiatives.</p>
             </div>
         </div>
         <div class="team-item">
             <img src="images/team5.png" alt="">
             <div class="down-content">
                 <h4>Elijah Fernandez</h4>
-                <span>Detainee</span>
-                <p>In sem sem, dapibus non lacus auctor, ornare sollicitudin lacus. Aliquam ipsum urna, semper quis.</p>
+                <span>Chief Marketing Officer</span>
+                <p>Mr. Fernandez heads the marketing department and oversees marketing strategies, advertising, branding, and customer outreach.</p>
             </div>
         </div>
     </div>

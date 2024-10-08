@@ -29,10 +29,10 @@ session_start();
             border-bottom: 4px solid #1e5b99;
         }
 
-        header h1 {
+        header h4 {
             font-family: 'Poppins', sans-serif;
             font-size: 3rem;
-            font-weight: 700;
+            font-weight: 500;
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
@@ -136,10 +136,10 @@ session_start();
 }
 
 
-.card-content h1 {
+.card-content h4 {
     font: bold 1rem sans-serif;
     border: 0.5rem outset pink;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #ffff; /* Complementary color for header */
     margin-bottom: 15px;
@@ -209,12 +209,11 @@ session_start();
     <div class="card">
         <div class="card-content">
     
-            <h1> <fieldset> 
-                At Automotive Retail & Services, we offer top-notch automotive products and services,
-                designed to meet the highest standards of quality and performance. Whether you're looking
-                for the latest in automotive technology or seeking expert service and repairs, our experienced
-                team is dedicated to ensuring your vehicle runs smoothly and safely.
-            </h1> </fieldset>
+            <h4> <fieldset> 
+                At Automotive Retail & Services, we provide high-quality automotive products and expert services to ensure your 
+                vehicle performs at its best. Whether you need the latest technology or reliable repairs, our experienced team 
+                is here to keep your car running smoothly and safely.
+            </h4> </fieldset>
         </div>
     </div>
 </center>
