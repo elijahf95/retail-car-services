@@ -1,7 +1,6 @@
 <?php
 // Start the session
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -21,24 +20,27 @@ session_start();
         }
 
         header {
-            background-color: #3498db;
-            color: white;
-            padding: 20px 0;
+            background-image: url('C:/xampp2/htdocs/newautomotive/newautomotive/car1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: yellow;
+            padding: 40px 0;
             text-align: center;
-            border-bottom: 4px solid #2980b9;
+            border-bottom: 4px solid #1e5b99;
         }
 
         header h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         nav ul {
             list-style-type: none;
             padding: 0;
-            margin: 10px 0 0;
+            margin: 20px 0 0;
         }
 
         nav ul li {
@@ -50,16 +52,19 @@ session_start();
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #2980b9;
+            transition: background-color 0.3s;
         }
 
         nav ul li a:hover {
-            color: #f1c40f;
+            background-color: #fcfc0e;
         }
 
         section {
             margin: 20px auto;
-            padding: 30px;
+            padding: 60px;
             max-width: 800px;
             background-color: white;
             border-radius: 8px;
@@ -83,7 +88,7 @@ session_start();
         }
 
         footer {
-            background-color: #3498db;
+            background-color: #1e5b99;
             color: white;
             text-align: center;
             padding: 10px 0;
@@ -96,12 +101,86 @@ session_start();
             margin: 0;
             font-size: 0.9rem;
         }
+
+        /* Additional Design Enhancements */
+        body {
+            background: linear-gradient(135deg, #1e5b99 30%, #3498db 70%);
+            color: #333;
+        }
+
+        section {
+            border-left: 6px solid #1e5b99;
+            border-right: 6px solid #1e5b99;
+        }
+
+        nav ul li a {
+            border: 2px solid #ffffff;
+        }
+
+        <style>
+    /* Existing styles... */
+
+    /* Style for the overview card */
+    .card {
+    background-color: #ffffff; /* Light background for readability */
+    border: px solid #3498db; /* Primary blue border */
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+    text-align: center;
+    color: #333; /* Darker text for contrast */
+    position: relative;
+    overflow: hidden; /* Ensures pseudo-elements don’t exceed card bounds */
+}
+
+
+.card-content h1 {
+    font: bold 1rem sans-serif;
+    border: 0.5rem outset pink;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffff; /* Complementary color for header */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+}
+
+.card-content h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #ffff;
+    line-height: 1.8;
+    margin: 0;
+    text-align: justify;
+}
+
+        /* Style for the image near the footer */
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            width: 150px; /* Adjust size of image */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            color: #ffff;
+
+
+        }
     </style>
 </head>
 <body>
 
 <header>
-     <header>
     <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
         <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> to Automotive Retail & Services!</h1>
     <?php else: ?>
@@ -123,10 +202,25 @@ session_start();
     </nav>
 </header>
 
-<section>
-    <h2>Overview</h2>
-    <p>At Automotive Retail & Services, we offer top-notch automotive products and services. Browse through our offerings to learn more.</p>
-</section>
+<div class="title"> <center>
+                <h1>OVERVIEW</h1>
+            </div> </center>
+<center>
+    <div class="card">
+        <div class="card-content">
+    
+            <h1> <fieldset> 
+                At Automotive Retail & Services, we offer top-notch automotive products and services,
+                designed to meet the highest standards of quality and performance. Whether you're looking
+                for the latest in automotive technology or seeking expert service and repairs, our experienced
+                team is dedicated to ensuring your vehicle runs smoothly and safely.
+            </h1> </fieldset>
+        </div>
+    </div>
+</center>
+
+
+
 
 <footer>
     <p>&copy; 2024 Automotive Retail & Services. All rights reserved.</p>

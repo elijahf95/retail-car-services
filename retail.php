@@ -14,11 +14,12 @@ $price = isset($_GET['price']) ? $_GET['price'] : 0;
     <style>
 
 .main-header {
-  background-color: #3498db;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  border-bottom: 4px solid #2980b9;
+            background-size: cover;
+            background-position: center;
+            color: yellow;
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 4px solid #1e5b99;
 }
 
 .main-header h1 {
@@ -28,35 +29,37 @@ $price = isset($_GET['price']) ? $_GET['price'] : 0;
   margin: 0;
 }
 
-.nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0;
-}
+nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
 
-.nav-list li {
-  display: inline;
-  margin: 0 15px;
-}
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
 
-.nav-list a {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #2980b9;
+            transition: background-color 0.3s;
+        }
 
-.nav-list a:hover {
-  color: #f1c40f;
-}
+        nav ul li a:hover {
+            background-color: #f7199e8;
+        }
+
 
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #f7199e8;
         }
 
         header {
@@ -74,17 +77,21 @@ $price = isset($_GET['price']) ? $_GET['price'] : 0;
     }
 
     .service-item {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      margin-bottom: 30px;
-      transition: transform 0.3s;
-    }
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-    .service-item:hover {
-      transform: translateY(-10px);
-    }
+.service-item:hover {
+  transform: translateY(-10px);
+}
+
 
     .service-item img {
       width: 100%;
@@ -93,9 +100,11 @@ $price = isset($_GET['price']) ? $_GET['price'] : 0;
     }
 
     .down-content {
-      padding: 20px;
-      text-align: center;
-    }
+  padding: 20px;
+  text-align: center;
+  flex-grow: 1;
+}
+
 
     .down-content span {
       font-family: 'Roboto', sans-serif;
@@ -126,12 +135,13 @@ $price = isset($_GET['price']) ? $_GET['price'] : 0;
 
     .filled-button:hover {
       background-color: #2980b9;
-      color: #fff;
+      color: #f7199e8;
     }
 
     .services {
-      padding: 50px 0;
-    }
+  padding: 50px 0;
+  background-color: #e0f7fa; /* Light blue background */
+}
 
     .container {
       max-width: 1140px;
