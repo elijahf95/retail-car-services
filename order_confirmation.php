@@ -1,14 +1,31 @@
 <?php
-// Retrieve product and price from the URL parameters, with fallbacks in case they are not set.
-$product = isset($_GET['product']) ? htmlspecialchars($_GET['product']) : 'Unknown Product';
-$price = isset($_GET['price']) ? (int)$_GET['price'] : 0;
+// order_confirmation.php
+include 'db_connection.php'; // Include your database connection
+
+// Get the car ID from the URL
+$carId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Fetch the car details from the database
+$sql = "SELECT * FROM cars WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('i', $carId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    header("Location: retail.php"); // Redirect if car not found
+    exit;
+}
+
+$car = $result->fetch_assoc();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment | Automotive Retail & Services</title>
+    <title>Order Confirmation | Automotive Retail & Services</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -19,146 +36,155 @@ $price = isset($_GET['price']) ? (int)$_GET['price'] : 0;
             background-color: #f8f9fa;
         }
 
-        header.main-header {
+        .navbar {
             background-color: #3498db;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 4px solid #2980b9;
-            position: relative;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        header.main-header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .back-button {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #2980b9;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            text-decoration: none;
-            display: inline-block;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #f1c40f;
-            color: #2c3e50;
-        }
-
-        .payment-section {
-            background-color: white;
-            padding: 50px;
-            margin: 40px auto;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            text-align: center;
-        }
-
-        .payment-section h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .payment-section form {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .payment-section label {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.2rem;
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .confirmation-section {
+            text-align: center;
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .confirmation-section img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-section h1 {
             color: #2c3e50;
             margin-bottom: 10px;
         }
 
-        .payment-section input[type="text"], 
-        .payment-section input[type="email"], 
-        .payment-section input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 1rem;
-            font-family: 'Roboto', sans-serif;
+        .confirmation-section h2 {
+            color: #3498db;
+            margin: 10px 0;
         }
 
-        .payment-section input[readonly] {
-            background-color: #e9ecef;
+        .confirmation-section p {
+            color: #7f8c8d;
+            margin: 10px 0;
+        }
+
+        .confirmation-form {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .confirmation-form label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .confirmation-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
         }
 
         .filled-button {
+            display: inline-block;
             background-color: #3498db;
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 1rem;
-            text-transform: uppercase;
-            font-family: 'Poppins', sans-serif;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
             text-decoration: none;
-            display: inline-block;
+            transition: background-color 0.3s, transform 0.3s;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
         .filled-button:hover {
             background-color: #2980b9;
-            color: #fff;
-        }
-
-        footer {
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
-<header class="main-header">
-    <h1>Complete Your Payment</h1>
-    <a href="javascript:history.back()" class="back-button">← Back</a>
-</header>
+<div class="navbar">
+    <div class="container">
+        <img src="images/logo1.png" class="logo" alt="Logo">
+        <nav>
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="retail.php">Cars</a></li>
+                <li><a href="order.php">Orders</a></li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
-<section class="payment-section">
-    <h2>Payment Information</h2>
-    <p>You're about to purchase: <strong><?php echo $product; ?></strong></p>
-    <p>Price: <strong>₱<?php echo number_format($price); ?></strong></p>
-    
-    <form action="order_process.php" method="POST">
-        <!-- Hidden inputs to retain product and price details -->
-        <input type="hidden" name="product" value="<?php echo htmlspecialchars($product); ?>">
-        <input type="hidden" name="price" value="<?php echo (int)$price; ?>">
-        
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
+<div class="confirmation-section">
+    <h1>Confirm Your Purchase</h1>
+    <p>You are about to purchase:</p>
+    <h2><?php echo htmlspecialchars($car['name']); ?></h2>
+    <p>Price: ₱<?php echo number_format($car['price'], 2); ?></p>
+    <img src="<?php echo htmlspecialchars($car['image']); ?>" alt="<?php echo htmlspecialchars($car['name']); ?>">
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+    <form action="order_process.php" method="POST" class="confirmation-form">
+        <input type="hidden" name="product" value="<?php echo htmlspecialchars($car['name']); ?>">
+        <input type="hidden" name="price" value="<?php echo htmlspecialchars($car['price']); ?>">
 
-        <label for="card">Card Number</label>
-        <input type="text" id="card" name="card" required placeholder="1234-5678-9012-3456">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required placeholder="John Doe">
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required placeholder="example@gmail.com">
+
+        <label for="card">Card Number:</label>
+        <input type="text" id="card" name="card" required placeholder="XXXX-XXXX-XXXX-XXXX">
 
         <label for="expiry">Expiry Date:</label>
         <input type="text" id="expiry" name="expiry" required placeholder="MM/YY">
@@ -166,13 +192,9 @@ $price = isset($_GET['price']) ? (int)$_GET['price'] : 0;
         <label for="cvv">CVV:</label>
         <input type="text" id="cvv" name="cvv" required placeholder="123">
 
-        <button type="submit" class="filled-button">Pay Now</button>
+        <button type="submit" class="filled-button">Complete Purchase</button>
     </form>
-</section>
-
-<footer>
-    <p>&copy; 2024 Automotive Retail & Services. All rights reserved.</p>
-</footer>
+</div>
 
 </body>
 </html>

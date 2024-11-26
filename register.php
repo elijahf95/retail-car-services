@@ -26,27 +26,6 @@
             z-index: 1000;
         }
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-
         section {
             flex: 1;
             margin: 20px auto;
@@ -56,6 +35,18 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             width: 90%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 100px;
+            margin-left: 38%;
         }
 
         h2 {
@@ -71,8 +62,6 @@
 
         label {
             font-size: 1rem;
-            margin-bottom: 5px;
-            display: block;
             color: #333;
         }
 
@@ -81,10 +70,12 @@
         input[type="password"] {
             width: 100%;
             padding: 12px;
+            margin-top: 5px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
             box-sizing: border-box;
+            transition: border-color 0.3s;
         }
 
         input[type="text"]:focus, 
@@ -103,7 +94,7 @@
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s;
             width: 100%;
         }
 
@@ -111,13 +102,9 @@
             background-color: #2980b9;
         }
 
-        input[type="submit"]:active {
-            transform: scale(0.98);
-        }
-
         .form-footer {
             margin-top: 15px;
-            text-align: center;
+            font-size: 0.9rem;
         }
 
         .form-footer a {
@@ -130,14 +117,42 @@
             text-decoration: underline;
         }
 
-        footer {
-            background-color: #3498db;
+        /* Notification Styles */
+        .notification {
+            display: none;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .notification.error {
+            background-color: #e74c3c;
             color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        }
+
+        .notification.success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        /* Responsive Media Queries */
+        @media screen and (max-width: 600px) {
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            input[type="submit"] {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
+            input[type="text"], 
+            input[type="email"], 
+            input[type="password"] {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -145,46 +160,95 @@
 
 <header>
     <h1>Automotive Retail & Services</h1>
-    <nav>
-        <ul>
-        </ul>
-    </nav>
 </header>
 
-<section>
-    <h2>Create a New Account</h2>
-    <form action="register_process.php" method="POST">
+<div class="container">
+    <h2>Create Your Account</h2>
+
+    <!-- Notification Element -->
+    <div id="notification" class="notification"></div>
+
+    <form id="registerForm">
         <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
         </div>
         
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-
-        <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
         </div>
-
+        
         <div class="form-group">
             <label for="confirm_password">Confirm Password:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
         </div>
         
         <input type="submit" value="Register">
-
+        
         <div class="form-footer">
             <p>Already have an account? <a href="login.php">Login here</a></p>
         </div>
     </form>
-</section>
+</div>
 
-<footer>
-    <p>&copy; 2024 Automotive Retail & Services. All rights reserved.</p>
-</footer>
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirm_password = document.getElementById('confirm_password').value;
+    const notification = document.getElementById('notification');
+
+    // Clear any previous notifications
+    notification.style.display = 'none';
+    notification.classList.remove('error', 'success');
+
+    // Create form data to send via AJAX
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('confirm_password', confirm_password);
+
+    // Send an AJAX POST request to register_process.php
+    fetch('register_process.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success notification and redirect to login page
+            notification.textContent = data.message;
+            notification.classList.add('success');
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'login.php'; // Redirect after 1 second
+            }, 1000);
+        } else {
+            // Show error notification
+            notification.textContent = data.message;
+            notification.classList.add('error');
+            notification.style.display = 'block';
+        }
+    })
+    .catch(error => {
+        // Handle general errors
+        notification.textContent = 'An error occurred. Please try again.';
+        notification.classList.add('error');
+        notification.style.display = 'block';
+    });
+});
+</script>
 
 </body>
 </html>

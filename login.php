@@ -12,7 +12,8 @@
             padding: 0;
             background-color: #f4f4f4;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
 
@@ -21,41 +22,21 @@
             color: white;
             padding: 15px 0;
             text-align: center;
-            position: sticky;
+            width: 100%;
+            position: fixed;
             top: 0;
             z-index: 1000;
         }
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-
         section {
-            flex: 1;
-            margin: 20px auto;
+            margin-top: 100px;
             padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 400px;
-            width: 90%;
+            width: 100%;
+            text-align: center;
         }
 
         h2 {
@@ -67,6 +48,7 @@
 
         .form-group {
             margin-bottom: 15px;
+            text-align: left;
         }
 
         label {
@@ -128,14 +110,23 @@
             text-decoration: underline;
         }
 
-        footer {
-            background-color: #3498db;
+        .notification {
+            display: none;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .notification.error {
+            background-color: #e74c3c;
             color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        }
+
+        .notification.success {
+            background-color: #2ecc71;
+            color: white;
         }
     </style>
 </head>
@@ -143,15 +134,15 @@
 
 <header>
     <h1>Automotive Retail & Services</h1>
-    <nav>
-        <ul>
-        </ul>
-    </nav>
 </header>
 
 <section>
     <h2>Login to Your Account</h2>
-    <form action="login_process.php" method="POST">
+
+    <!-- Notification Element -->
+    <div id="notification" class="notification"></div>
+
+    <form id="loginForm">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -170,9 +161,54 @@
     </form>
 </section>
 
-<footer>
-    <p>&copy; 2024 Automotive Retail & Services. All rights reserved.</p>
-</footer>
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const notification = document.getElementById('notification');
+
+    // Clear any previous notifications
+    notification.style.display = 'none';
+    notification.classList.remove('error', 'success');
+
+    // Create form data to send via AJAX
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+
+    // Send an AJAX POST request to login_process.php
+    fetch('login_process.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success notification and redirect to home page
+            notification.textContent = data.message;
+            notification.classList.add('success');
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'index.php'; // Redirect after 1 second
+            }, 1000);
+        } else {
+            // Show error notification
+            notification.textContent = data.message;
+            notification.classList.add('error');
+            notification.style.display = 'block';
+        }
+    })
+    .catch(error => {
+        // Handle general errors
+        notification.textContent = 'An error occurred. Please try again.';
+        notification.classList.add('error');
+        notification.style.display = 'block';
+    });
+});
+</script>
 
 </body>
 </html>

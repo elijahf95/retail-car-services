@@ -1,351 +1,168 @@
 <?php
-// payment.php
-$product = isset($_GET['product']) ? $_GET['product'] : 'Unknown Product';
-$price = isset($_GET['price']) ? $_GET['price'] : 0;
+// retail.php
+include 'db_connection.php'; // Include your database connection
+
+// Fetch available cars from the database
+$sql = "SELECT * FROM cars WHERE is_sold = 0"; // Only select unsold cars
+$result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retail | Automotive Retail & Services</title>
+    <title>Car Listings | Automotive Retail & Services</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
-
-.main-header {
-            background-size: cover;
-            background-position: center;
-            color: yellow;
-            padding: 40px 0;
-            text-align: center;
-            border-bottom: 4px solid #1e5b99;
-}
-
-.main-header h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 20px 0 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 10px 15px;
-            border-radius: 5px;
-            background-color: #2980b9;
-            transition: background-color 0.3s;
-        }
-
-        nav ul li a:hover {
-            background-color: #f7199e8;
-        }
-
-
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f7199e8;
+            background-color: #f8f9fa;
         }
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
+        .navbar {
+            background-color: #3498db; /* Darker background for a more professional look */
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
         }
 
-        h4 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
+        .container {
+            max-width: 1200px; /* Maximum width to center the content */
+            margin: 0 auto; /* Center the container */
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between logo and nav links */
+            align-items: center; /* Vertically align items */
+        }
 
-    .service-item {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-bottom: 30px;
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.service-item:hover {
-  transform: translateY(-10px);
-}
-
-
-    .service-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .down-content {
-  padding: 20px;
-  text-align: center;
-  flex-grow: 1;
-}
-
-
-    .down-content span {
-      font-family: 'Roboto', sans-serif;
-      font-size: 1.2rem;
-      color: #2c3e50;
-      font-weight: 500;
-    }
-
-    .down-content p {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #7f8c8d;
-      margin-top: 10px;
-    }
-
-    .filled-button {
-      background-color: #3498db;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-size: 1rem;
-      text-transform: uppercase;
-      font-family: 'Poppins', sans-serif;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    .filled-button:hover {
-      background-color: #2980b9;
-      color: #f7199e8;
-    }
-
-    .services {
-  padding: 50px 0;
-  background-color: #e0f7fa; /* Light blue background */
-}
-
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .col-md-4 {
-      width: 31%;
-      margin-bottom: 30px;
-    }
+        .logo {
+            width: 100px;
+            height: auto;
+        }
 
         nav ul {
-            list-style-type: none;
-            padding: 0;
+            list-style: none; /* Remove bullet points */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+            display: flex; /* Use flexbox for horizontal layout */
         }
+
         nav ul li {
-            display: inline;
-            margin-right: 20px;
+            margin: 0 15px; /* Space between items */
         }
 
         nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+            color: #ecf0f1; /* Light color for links */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 15px; /* Padding around links */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth background change on hover */
         }
 
         nav ul li a:hover {
-            text-decoration: underline;
+            background-color: #2c3e50; /* Change background on hover */
+            color: white; /* Change text color on hover */
         }
 
-        section {
-            margin: 20px;
+        .cart-icon {
+            width: 24px;
+            height: 24px;
+            fill: #ecf0f1; /* Light color for icon */
+            transition: fill 0.3s;
+        }
+
+        .cart-icon:hover {
+            fill: #3498db; /* Change color on hover */
+        }
+
+        .car-listing {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             padding: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        footer {
+        .car-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            width: 300px;
+            background-color: white;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .car-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .filled-button {
             background-color: #3498db;
             color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
         }
 
-
-.products-section {
-  background-color: #f5f5f5;
-  padding: 50px 20px;
-  text-align: center;
-  border-radius: 8px;
-  margin: 20px auto;
-  max-width: 800px;
-}
-
-.products-section h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-.products-section p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
-  color: #7f8c8d;
-  line-height: 1.6;
-  margin: 0;
-}
-
+        .filled-button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
 
-<header class="main-header">
-    <h1>Retail Products</h1>
-    <nav>
-        <ul class="nav-list">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="services.php">Services</a></li>
-            <li><a href="retail.php">Retail</a></li>
-            <li><a href="contact.php">Contact</a></li>
-        </ul>
-    </nav>
-</header>
-
-
-<section class="products-section">
-    <h2>Our Products</h2>
-    <p>Explore our wide range of automotive parts and accessories available for purchase.</p>
-</section>
-
-
-<div class="services">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="service-item">
-          <img src="images/offer-1-720x480.jpg" alt="">
-          <div class="down-content">
-            <h4>2011 Ferrari California</h4>
-            <div style="margin-bottom:10px;">
-              <span>from <sup>₱</sup>20.5 Million</span>
-            </div>
-            <p>The Ferrari California is billed as the Ferrari you can use every day.</p>
-            <a href="order_confirmation.php?product=2011 Ferrari California&price=20500000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div class="col-md-4">
-        <div class="service-item">
-          <img src="images/offer-2-720x480.jpg" alt="">
-          <div class="down-content">
-            <h4>Honda Vezel Modulo 2014</h4>
-            <div style="margin-bottom:10px;">
-              <span>from <sup>₱</sup>1.6 Million</span>
-            </div>
-            <p>The Honda Vezel Modulo is a stylish compact SUV, known for its fuel efficiency and reliability, perfect for urban driving and weekend getaways.</p>
-            <a href="order_confirmation.php?product=Honda Vezel Modulo 2014&price=16000000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div class="col-md-4">
-        <div class="service-item">
-          <img src="images/offer-3-720x480.jpg" alt="">
-          <div class="down-content">
-            <h4>Ford 2015 Edge Naranja Coches</h4>
-            <div style="margin-bottom:10px;">
-              <span>from <sup>₱</sup>2 Million</span>
-            </div>
-            <p>The Ford Edge is a midsize SUV offering comfort, space, and advanced technology for family road trips or long drives.</p>
-            <a href="order_confirmation.php?product=Ford 2015 Edge Naranja&price=2000000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div class="col-md-4">
-        <div class="service-item">
-          <img src="images/offer-4-720x480.jpg" alt="">
-          <div class="down-content">
-            <h4>Volkswagen Jetta</h4>
-            <div style="margin-bottom:10px;">
-              <span>from <sup>₱</sup>1.5 Million</span>
-            </div>
-            <p>The Volkswagen Jetta is a sleek, fuel-efficient sedan known for its smooth handling and comfortable ride, perfect for daily commutes.</p>
-            <a href="order_confirmation.php?product=Volkswagen Jetta&price=1500000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div class="col-md-4">
-        <div class="service-item">
-          <img src="images/offer-5-720x480.jpg" alt="">
-          <div class="down-content">
-            <h4>Volkswagen Golf Mk7</h4>
-            <div style="margin-bottom:10px;">
-              <span>from <sup>₱</sup>1.7 Million</span>
-            </div>
-            <p>The Volkswagen Golf Mk7 is a versatile hatchback, known for its agility and advanced technology, making it a great option for city driving.</p>
-            <a href="order_confirmation.php?product=Volkswagen Golf Mk7&price=1700000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
-          </div>
-        </div>
-        <br>
-      </div>
-
-      <div class="col-md-4">
-        <div class="service-item">
-          <img src="images/offer-6-720x480.jpg" alt="">
-          <div class="down-content">
-            <h4>2020 Ford Mustang GT Convertible</h4>
-            <div style="margin-bottom:10px;">
-              <span>from <sup>₱</sup>3.5 Million</span>
-            </div>
-            <p>The 2020 Ford Mustang GT Convertible delivers thrilling performance with a powerful V8 engine, perfect for open-air driving enthusiasts.</p>
-            <a href="order_confirmation.php?product=2020 Ford Mustang GT Convertible&price=3500000" data-toggle="modal" data-target="#exampleModal" class="filled-button">Buy Now</a>
-          </div>
-        </div>
-        <br>
-      </div>
+<div class="navbar">
+    <div class="container">
+        <img src="images/logo1.png" class="logo" alt="Logo">
+        <nav>
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li>
+                    <a href="order.php">
+                        <!-- SVG Cart Icon -->
+                        <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M7 4h-2l-1 2h-2v2h2l3 8h10l3-8h2v-2h-2l-1-2h-2l-1 2h-10l-1-2zm0 2l1.3 2h7.4l1.3-2h-10zm2 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
+        </nav>
     </div>
-  </div>
 </div>
 
+<h1 style="text-align: center; padding: 20px;">Available Cars for Sale</h1>
 
-<footer>
-    <p>&copy; 2024 Automotive Retail & Services. All rights reserved.</p>
-</footer>
+<div class="car-listing">
+    <?php if ($result->num_rows > 0): ?>
+        <?php while ($car = $result->fetch_assoc()): ?>
+            <div class="car-card">
+                <img src="<?php echo htmlspecialchars($car['image']); ?>" alt="<?php echo htmlspecialchars($car['name']); ?>" class="car-image">
+                <h2><?php echo htmlspecialchars($car['name']); ?></h2>
+                <p>Price: ₱<?php echo number_format($car['price'], 2); ?></p>
+                <a href="order_confirmation.php?id=<?php echo $car['id']; ?>" class="filled-button">Buy Now</a>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No cars available for sale at the moment.</p>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
+
+<?php
+$conn->close(); // Close the database connection
+?>

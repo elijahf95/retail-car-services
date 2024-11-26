@@ -32,3 +32,67 @@ CREATE TABLE orders (
   cvv varchar(4) NOT NULL,
   PRIMARY KEY (id)
 );
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+-- Use the automotive_db database
+USE automotive_db;
+
+-- Check if the 'cars' table exists, if not, create it
+CREATE TABLE IF NOT EXISTS cars (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price INT NOT NULL,
+    is_sold TINYINT(1) NOT NULL DEFAULT 0
+);
+
+-- Example data for cars (optional)
+INSERT INTO cars (name, price) VALUES
+('Toyota Corolla', 1000000),
+('Honda Civic', 1200000),
+('Ford Mustang', 2000000),
+('Nissan Altima', 1500000),
+('Chevrolet Camaro', 1800000);
+
+
+-- Drop the table if it already exists (optional)
+DROP TABLE IF EXISTS orders;
+
+-- Create the orders table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    customer_email VARCHAR(100) NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Pending', 'Completed', 'Canceled') DEFAULT 'Pending'
+);
+
+
+
+------------------CARS TABLE UPDATED--------------------------
+CREATE TABLE cars (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    is_sold TINYINT(1) NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-----------------INSERTING NEW CARS--------------------------------
+
+INSERT INTO cars (name, price, image, description, is_sold) VALUES
+('2011 Ferrari California', 20500000, 'images/offer-1-720x480.jpg', 'The Ferrari California is billed as the Ferrari you can use every day.', 0),
+('Honda Vezel Modulo 2014', 1600000, 'images/offer-2-720x480.jpg', 'The Honda Vezel Modulo is a stylish compact SUV, known for its fuel efficiency and reliability.', 0),
+('Ford 2015 Edge Naranja Coches', 2000000, 'images/offer-3-720x480.jpg', 'The Ford Edge is a midsize SUV offering comfort, space, and advanced technology.', 0),
+('Volkswagen Jetta', 1500000, 'images/offer-4-720x480.jpg', 'The Volkswagen Jetta is a sleek, fuel-efficient sedan known for its smooth handling.', 0),
+('Volkswagen Golf Mk7', 1700000, 'images/offer-5-720x480.jpg', 'The Volkswagen Golf Mk7 is a versatile hatchback, known for its agility.', 0),
+('2020 Ford Mustang GT Convertible', 3500000, 'images/offer-6-720x480.jpg', 'The 2020 Ford Mustang GT Convertible delivers thrilling performance.', 0);
